@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.NotBlank;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -80,9 +81,9 @@ public class UserService {
         User userEntity = userRepository.findById(id).orElseThrow(()-> new CustomValidationApiException("찾을수 없는 id입니다."));
         //2.영속화 된 오브젝트 수정-더티체킹(업데이트 완료)
         userEntity.setName(user.getName());
-        String rawPassword = user.getPassword();
-        String encPassword = bCryptPasswordEncoder.encode(rawPassword);
-        userEntity.setPassword(encPassword);
+//        String rawPassword = user.getPassword();
+//        String encPassword = bCryptPasswordEncoder.encode(rawPassword);
+//        userEntity.setPassword(encPassword);
         userEntity.setBio(user.getBio());
         userEntity.setWebsite(user.getWebsite());
         userEntity.setPhone(user.getPhone());
@@ -90,5 +91,13 @@ public class UserService {
         return userEntity;
         //더티체킹이 일어나서 업데이트 완료됨
     }
-
+    @Transactional
+    public User 패스워드수정(int id,User user) {
+        User userEntity = userRepository.findById(id)
+                .orElseThrow(() -> new CustomValidationApiException("찾을 수 없는 id입니다."));
+        String rawPassword = user.getPassword();
+        String encPassword = bCryptPasswordEncoder.encode(rawPassword);
+        userEntity.setPassword(encPassword);
+        return userEntity;
+    }
 }

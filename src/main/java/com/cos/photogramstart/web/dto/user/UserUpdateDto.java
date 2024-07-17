@@ -7,7 +7,7 @@ import javax.persistence.Column;
 @Data
 public class UserUpdateDto {
     private String name;
-    private String password;
+    //private String password;
     private String website;
     private String bio;
     private String phone;
@@ -17,7 +17,7 @@ public class UserUpdateDto {
     public User toEntity(){
         return User.builder()
                 .name(name)
-                .password(password)
+               // .password(password)
                 .website(website)
                 .bio(bio)
                 .phone(phone)

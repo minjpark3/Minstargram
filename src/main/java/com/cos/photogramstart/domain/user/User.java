@@ -35,7 +35,6 @@ public class User {
     private String bio;
     private String phone;
     private String gender;
-
     private String profileImageUrl;
     private String role; //권한
 
@@ -54,4 +53,5 @@ public class User {
     private void createDate(){
         this.createDate=LocalDateTime.now();
     }
+
 }

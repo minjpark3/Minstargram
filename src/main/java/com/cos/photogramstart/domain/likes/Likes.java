@@ -3,6 +3,7 @@ package com.cos.photogramstart.domain.likes;
 
 import com.cos.photogramstart.domain.image.Image;
 import com.cos.photogramstart.domain.user.User;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,9 +33,10 @@ public class Likes {
 
     @ManyToOne
     @JoinColumn(name = "imageId")
+    @JsonBackReference
     private Image image; //1 ->하나의 이미지는 여러번 가능  1:N
 
-    //오류가 터지고 잡아봅시다 (좋아요하면 무한참조 시작됨)
+
     @JsonIgnoreProperties({"images"})
     @JoinColumn(name = "userId")
     @ManyToOne

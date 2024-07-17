@@ -8,6 +8,7 @@ import com.cos.photogramstart.service.SubscribeService;
 import com.cos.photogramstart.service.UserService;
 import com.cos.photogramstart.web.dto.CMRespDto;
 import com.cos.photogramstart.web.dto.subscribe.SubscribeDto;
+import com.cos.photogramstart.web.dto.user.UserPwDto;
 import com.cos.photogramstart.web.dto.user.UserUpdateDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -62,6 +63,23 @@ public class UserApiController {
             User userEntity = userService.회원수정(id,userUpdateDto.toEntity());
             principalDetails.setUser(userEntity);
             return new CMRespDto<>(1,"회원수정완료",userEntity); //응답시에 userEntity의 모든 getter함수가 호출되고 JSON으로 파싱해서 응답한다.
+        }
+    }
+    @PutMapping("/api/user/{id}/password")
+    public CMRespDto<?> updatePassword(@PathVariable int id,
+                                       @Valid UserPwDto passwordUpdateDto,
+                                       BindingResult bindingResult,
+                                       @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        if (bindingResult.hasErrors()) {
+            Map<String, String> errorMap = new HashMap<>();
+            for (FieldError error : bindingResult.getFieldErrors()) {
+                errorMap.put(error.getField(), error.getDefaultMessage());
+            }
+            throw new CustomValidationApiException("유효성 검사 실패함", errorMap);
+        } else {
+            User userEntity = userService.패스워드수정(id, passwordUpdateDto.toEntity());
+            principalDetails.setUser(userEntity);
+            return new CMRespDto<>(1, "패스워드수정완료", userEntity);
         }
     }
 }

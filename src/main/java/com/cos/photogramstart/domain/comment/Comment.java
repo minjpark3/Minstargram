@@ -2,6 +2,8 @@ package com.cos.photogramstart.domain.comment;
 
 import com.cos.photogramstart.domain.image.Image;
 import com.cos.photogramstart.domain.user.User;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,6 +34,7 @@ public class Comment {
 
     @JoinColumn(name="imageId")
     @ManyToOne
+    @JsonBackReference
     private Image image;
 
     private LocalDateTime createDate;

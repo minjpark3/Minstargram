@@ -12,6 +12,8 @@ target/
 .settings
 .springBeans
 .sts4-cache
+# Ignore application-dev.yml for security reasons
+/application-dev.yml
 
 ### IntelliJ IDEA ###
 .idea

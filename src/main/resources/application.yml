@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8088
   servlet:
     context-path: /
     encoding:
@@ -12,17 +12,10 @@ spring:
       prefix: /WEB-INF/views/
       suffix: .jsp
 
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/photogram?serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true&useSSL=false
-    username: root
-    password: cos1234
-
-
   jpa:
     open-in-view: true
     hibernate:
-      ddl-auto: update #create ,update ,none
+      ddl-auto: update
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true
@@ -30,13 +23,12 @@ spring:
   servlet:
     multipart:
       enabled: true
-      max-file-size: 2MB
+      max-file-size: 10MB
+      max-request-size: 10MB
 
-  security:
-    user:
-      name: test
-      password: 1234
+  profiles:
+    active: dev
 
 
 file:
-  path: C:/workspace/springbootwork/upload/
+  path: C:/workspace/springbootwork/uplode/
